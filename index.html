@@ -506,9 +506,9 @@
             <input type="email" id="lead-email" placeholder="you@example.com" />
           </div>
 
-          <button class="btn-submit" id="submit-btn" onclick="submitLead()">Send my results to Rob</button>
+          <button class="btn-submit" id="submit-btn" onclick="submitLead()">Tell Sheldon I'm keen to hear more</button>
           <p style="font-size:12px;font-weight:300;color:var(--structural);text-align:center;margin-top:12px;">
-            Your details are used only to follow up on this enquiry.
+            Not sure who Sheldon is? <a href="https://blinq.me/09ewHCCxxNzR?s=s" target="_blank" style="color:var(--copper);text-decoration:none;font-weight:400;">Look him up here.</a>
           </p>
         </div>
 
@@ -625,6 +625,4 @@
         document.getElementById('success').style.display = 'block';
       })
       .catch(() => {
-        // no-cors means we can't detect errors — show success anyway
-        document.getElementById('lead-form').style.display = 'none';
-   
+        // no-co
