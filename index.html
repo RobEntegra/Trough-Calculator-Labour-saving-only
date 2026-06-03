@@ -9,387 +9,70 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --iron: #3A3A3A;
-      --basalt: #595959;
-      --structural: #8C8C8C;
-      --concrete: #C7C7C7;
-      --chalk: #F2F2F2;
-      --paper: #FFFFFF;
-      --copper: #965C46;
-      --copper-tint: #B27A62;
+      --iron: #3A3A3A; --basalt: #595959; --structural: #8C8C8C;
+      --concrete: #C7C7C7; --chalk: #F2F2F2; --paper: #FFFFFF;
+      --copper: #965C46; --copper-tint: #B27A62;
     }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 400;
-      background: var(--chalk);
-      color: var(--iron);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    body { font-family: 'Poppins', sans-serif; font-weight: 400; background: var(--chalk); color: var(--iron); min-height: 100vh; display: flex; flex-direction: column; }
+    header { background: var(--iron); padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
+    header img { height: 36px; width: auto; }
+    header .tagline { font-weight: 300; font-size: 13px; color: var(--concrete); letter-spacing: 0.05em; text-transform: uppercase; border-left: 1px solid var(--structural); padding-left: 16px; }
+    .hero { background: var(--iron); padding: 48px 32px 52px; text-align: center; }
+    .hero .eyebrow { font-weight: 600; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--copper-tint); margin-bottom: 16px; }
+    .hero h1 { font-family: 'Roboto', sans-serif; font-weight: 700; font-size: clamp(28px, 5vw, 42px); color: var(--paper); line-height: 1.15; margin-bottom: 16px; }
+    .hero p { font-size: 16px; font-weight: 300; color: var(--concrete); max-width: 520px; margin: 0 auto; line-height: 1.65; }
+    main { max-width: 680px; margin: 0 auto; width: 100%; padding: 40px 20px 60px; flex: 1; }
+    .card { background: var(--paper); border: 1px solid var(--concrete); padding: 36px 32px; margin-bottom: 20px; }
+    .card-title { font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--structural); margin-bottom: 28px; }
+    .field { margin-bottom: 24px; }
+    label { display: block; font-size: 14px; font-weight: 600; color: var(--basalt); margin-bottom: 8px; }
+    label span.hint { font-weight: 300; color: var(--structural); font-size: 13px; }
+    input[type="number"], select, input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%; height: 48px; padding: 0 14px; border: 1px solid var(--concrete);
+      background: var(--paper); font-family: 'Poppins', sans-serif; font-size: 15px;
+      color: var(--iron); appearance: none; -webkit-appearance: none; border-radius: 0; transition: border-color 0.15s;
     }
-
-    /* ── Header ── */
-    header {
-      background: var(--iron);
-      padding: 20px 32px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    header img {
-      height: 36px;
-      width: auto;
-    }
-
-    header .tagline {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 300;
-      font-size: 13px;
-      color: var(--concrete);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-left: 1px solid var(--structural);
-      padding-left: 16px;
-      margin-left: 4px;
-    }
-
-    /* ── Hero ── */
-    .hero {
-      background: var(--iron);
-      padding: 48px 32px 52px;
-      text-align: center;
-    }
-
-    .hero .eyebrow {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--copper-tint);
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      font-size: clamp(28px, 5vw, 42px);
-      color: var(--paper);
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-
-    .hero p {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--concrete);
-      max-width: 520px;
-      margin: 0 auto;
-      line-height: 1.65;
-    }
-
-    /* ── Main layout ── */
-    main {
-      max-width: 680px;
-      margin: 0 auto;
-      width: 100%;
-      padding: 40px 20px 60px;
-      flex: 1;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: var(--paper);
-      border: 1px solid var(--concrete);
-      padding: 36px 32px;
-      margin-bottom: 20px;
-    }
-
-    .card-title {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--structural);
-      margin-bottom: 28px;
-    }
-
-    /* ── Form elements ── */
-    .field {
-      margin-bottom: 24px;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--basalt);
-      margin-bottom: 8px;
-    }
-
-    label span.hint {
-      font-weight: 300;
-      color: var(--structural);
-      font-size: 13px;
-    }
-
-    input[type="number"],
-    select {
-      width: 100%;
-      height: 48px;
-      padding: 0 14px;
-      border: 1px solid var(--concrete);
-      background: var(--paper);
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      color: var(--iron);
-      appearance: none;
-      -webkit-appearance: none;
-      border-radius: 0;
-      transition: border-color 0.15s;
-    }
-
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238C8C8C' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
     }
-
-    input[type="number"]:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--copper);
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"] {
-      width: 100%;
-      height: 48px;
-      padding: 0 14px;
-      border: 1px solid var(--concrete);
-      background: var(--paper);
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      color: var(--iron);
-      border-radius: 0;
-      transition: border-color 0.15s;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="tel"]:focus {
-      outline: none;
-      border-color: var(--copper);
-    }
-
-    /* Livestock toggle */
-    .toggle-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .toggle-option {
-      position: relative;
-    }
-
-    .toggle-option input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
+    input:focus, select:focus { outline: none; border-color: var(--copper); }
+    .toggle-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .toggle-option { position: relative; }
+    .toggle-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
     .toggle-option label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      height: 56px;
-      border: 1px solid var(--concrete);
-      background: var(--chalk);
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--basalt);
-      transition: all 0.15s;
-      user-select: none;
-      margin: 0;
+      display: flex; align-items: center; justify-content: center; height: 56px;
+      border: 1px solid var(--concrete); background: var(--chalk); cursor: pointer;
+      font-size: 15px; font-weight: 600; color: var(--basalt); transition: all 0.15s; user-select: none; margin: 0;
     }
-
-    .toggle-option label svg {
-      flex-shrink: 0;
-    }
-
-    .toggle-option input[type="radio"]:checked + label {
-      background: var(--iron);
-      border-color: var(--iron);
-      color: var(--paper);
-    }
-
-    .toggle-option input[type="radio"]:checked + label svg path,
-    .toggle-option input[type="radio"]:checked + label svg circle,
-    .toggle-option input[type="radio"]:checked + label svg line {
-      stroke: var(--paper);
-    }
-
-    /* ── Results ── */
-    #results {
-      display: none;
-    }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .result-box {
-      padding: 24px 20px;
-      border: 1px solid var(--concrete);
-    }
-
-    .result-box .label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--structural);
-      margin-bottom: 10px;
-    }
-
-    .result-box .value {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      font-size: 28px;
-      color: var(--iron);
-      line-height: 1;
-    }
-
-    .result-box .sub {
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--structural);
-      margin-top: 6px;
-    }
-
-    .result-box.highlight {
-      background: var(--iron);
-      border-color: var(--iron);
-      grid-column: 1 / -1;
-    }
-
-    .result-box.highlight .label { color: var(--structural); }
+    .toggle-option input[type="radio"]:checked + label { background: var(--iron); border-color: var(--iron); color: var(--paper); }
+    #results { display: none; }
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .result-box { padding: 24px 20px; border: 1px solid var(--concrete); }
+    .result-box .rlabel { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--structural); margin-bottom: 10px; }
+    .result-box .value { font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 28px; color: var(--iron); line-height: 1; }
+    .result-box .sub { font-size: 12px; font-weight: 300; color: var(--structural); margin-top: 6px; }
+    .result-box.highlight { background: var(--iron); border-color: var(--iron); grid-column: 1 / -1; }
+    .result-box.highlight .rlabel { color: var(--structural); }
     .result-box.highlight .value { color: var(--copper-tint); font-size: 36px; }
     .result-box.highlight .sub { color: var(--concrete); }
-
-    /* ── CTA button ── */
-    .btn-primary {
-      width: 100%;
-      height: 52px;
-      background: var(--iron);
-      color: var(--paper);
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      letter-spacing: 0.05em;
-      border: none;
-      cursor: pointer;
-      transition: background 0.15s;
-      border-radius: 0 8px 0 0;
-    }
-
+    .btn-primary { width: 100%; height: 52px; background: var(--iron); color: var(--paper); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; border: none; cursor: pointer; transition: background 0.15s; border-radius: 0 8px 0 0; }
     .btn-primary:hover { background: var(--basalt); }
-
-    .btn-submit {
-      width: 100%;
-      height: 52px;
-      background: var(--copper);
-      color: var(--paper);
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      letter-spacing: 0.05em;
-      border: none;
-      cursor: pointer;
-      transition: background 0.15s;
-      border-radius: 0 8px 0 0;
-    }
-
+    .btn-submit { width: 100%; height: 52px; background: var(--copper); color: var(--paper); font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; border: none; cursor: pointer; transition: background 0.15s; border-radius: 0 8px 0 0; }
     .btn-submit:hover { background: var(--copper-tint); }
     .btn-submit:disabled { background: var(--concrete); cursor: not-allowed; }
-
-    /* ── Inline error ── */
-    .error-msg {
-      display: none;
-      font-size: 13px;
-      font-weight: 400;
-      color: #a33;
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    /* ── Divider ── */
-    .divider {
-      height: 1px;
-      background: var(--chalk);
-      margin: 24px 0;
-    }
-
-    /* ── Success state ── */
-    #success {
-      display: none;
-      text-align: center;
-      padding: 40px 24px;
-    }
-
-    #success svg { margin: 0 auto 20px; display: block; }
-
-    #success h2 {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      font-size: 24px;
-      color: var(--iron);
-      margin-bottom: 12px;
-    }
-
-    #success p {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--basalt);
-      line-height: 1.6;
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--iron);
-      padding: 20px 32px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--structural);
-      letter-spacing: 0.03em;
-    }
-
-    @media (max-width: 480px) {
-      .card { padding: 24px 20px; }
-      .results-grid { grid-template-columns: 1fr; }
-      .result-box.highlight { grid-column: auto; }
-    }
+    .error-msg { display: none; font-size: 13px; color: #a33; margin-top: 12px; text-align: center; }
+    #success { display: none; text-align: center; padding: 40px 24px; }
+    #success h2 { font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 24px; color: var(--iron); margin-bottom: 12px; }
+    #success p { font-size: 15px; font-weight: 300; color: var(--basalt); line-height: 1.6; }
+    footer { background: var(--iron); padding: 20px 32px; text-align: center; font-size: 12px; font-weight: 300; color: var(--structural); }
+    @media (max-width: 480px) { .card { padding: 24px 20px; } .results-grid { grid-template-columns: 1fr; } .result-box.highlight { grid-column: auto; } }
   </style>
 </head>
 <body>
 
   <header>
-    <!-- Replace src with your hosted logo URL if needed -->
     <img src="../logo22.avif" alt="Entegra" onerror="this.style.display='none'" />
     <span class="tagline">Trough Cleaning Cost Calculator</span>
   </header>
@@ -401,9 +84,7 @@
   </div>
 
   <main>
-
-    <!-- Step 1: Inputs -->
-    <div class="card" id="calculator-form">
+    <div class="card">
       <div class="card-title">Your operation</div>
 
       <div class="field">
@@ -411,28 +92,11 @@
         <div class="toggle-group">
           <div class="toggle-option">
             <input type="radio" name="livestock" id="cattle" value="cattle" checked />
-            <label for="cattle">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 8c0-2 1-4 3-4s3 2 3 4" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M14 8c0-2 1-4 3-4s3 2 3 4" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
-                <ellipse cx="12" cy="13" rx="7" ry="5" stroke="#595959" stroke-width="1.5"/>
-                <path d="M8 18v3M16 18v3" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              Cattle
-            </label>
+            <label for="cattle">Cattle</label>
           </div>
           <div class="toggle-option">
             <input type="radio" name="livestock" id="sheep" value="sheep" />
-            <label for="sheep">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="10" r="5" stroke="#595959" stroke-width="1.5"/>
-                <circle cx="7" cy="8" r="2.5" stroke="#595959" stroke-width="1.5"/>
-                <circle cx="17" cy="8" r="2.5" stroke="#595959" stroke-width="1.5"/>
-                <path d="M9 15v4M15 15v4" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M11 19h2" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              Sheep
-            </label>
+            <label for="sheep">Sheep</label>
           </div>
         </div>
       </div>
@@ -455,8 +119,8 @@
       </div>
 
       <div class="field">
-        <label for="time-per-trough">Time to clean one trough <span class="hint">(minutes)</span></label>
-        <input type="number" id="time-per-trough" min="1" max="300" placeholder="e.g. 20" />
+        <label for="mins">Time to clean one trough <span class="hint">(minutes)</span></label>
+        <input type="number" id="mins" min="1" max="300" placeholder="e.g. 20" />
       </div>
 
       <div class="field">
@@ -464,43 +128,39 @@
         <input type="number" id="wage" min="1" max="500" placeholder="e.g. 35" />
       </div>
 
-      <button class="btn-primary" onclick="calculate()">Calculate my savings</button>
+      <button class="btn-primary" id="calc-btn">Calculate my savings</button>
       <p class="error-msg" id="calc-error">Please fill in all fields above before calculating.</p>
     </div>
 
-    <!-- Step 2: Results -->
     <div id="results">
       <div class="card">
-        <div class="card-title">Your cleaning costs — current vs Croc Props</div>
-
+        <div class="card-title">Current vs Croc Props</div>
         <div class="results-grid">
           <div class="result-box">
-            <div class="label">Current annual cost</div>
-            <div class="value" id="res-current-cost">—</div>
+            <div class="rlabel">Current annual cost</div>
+            <div class="value" id="res-current-cost">-</div>
             <div class="sub" id="res-current-hours"></div>
           </div>
           <div class="result-box">
-            <div class="label">With Croc Props pumps</div>
-            <div class="value" id="res-croc-cost">—</div>
+            <div class="rlabel">With Croc Props pumps</div>
+            <div class="value" id="res-croc-cost">-</div>
             <div class="sub" id="res-croc-hours"></div>
           </div>
           <div class="result-box highlight">
-            <div class="label">Annual saving</div>
-            <div class="value" id="res-saving">—</div>
+            <div class="rlabel">Annual saving</div>
+            <div class="value" id="res-saving">-</div>
             <div class="sub" id="res-saving-hours"></div>
           </div>
         </div>
-
         <p style="font-size:12px;font-weight:300;color:var(--structural);line-height:1.6;">
           Croc Props pumps reduce trough cleaning frequency by approximately 50%, as troughs stay cleaner for longer with continuous water movement.
         </p>
       </div>
 
-      <!-- Step 3: Lead capture -->
-      <div class="card" id="lead-card">
+      <div class="card">
         <div class="card-title">Get the full picture</div>
         <p style="font-size:15px;font-weight:300;color:var(--basalt);margin-bottom:24px;line-height:1.65;">
-          Leave your details and we will get back to you with a tailored recommendation for your property.
+          Leave your details and Sheldon will get back to you with a tailored recommendation for your property.
         </p>
 
         <div id="lead-form">
@@ -516,108 +176,82 @@
             <label for="lead-email">Email address</label>
             <input type="email" id="lead-email" placeholder="you@example.com" />
           </div>
-
-          <button class="btn-submit" id="submit-btn" onclick="submitLead()">Tell Sheldon I'm keen to hear more</button>
+          <button class="btn-submit" id="submit-btn">Tell Sheldon I'm keen to hear more</button>
           <p class="error-msg" id="lead-error">Please fill in your name, phone and email.</p>
           <p style="font-size:12px;font-weight:300;color:var(--structural);text-align:center;margin-top:12px;">
-            Not sure who Sheldon is? <a href="https://blinq.me/09ewHCCxxNzR?s=s" target="_blank" style="color:var(--copper);text-decoration:none;font-weight:400;">Look him up here.</a>
+            Not sure who Sheldon is? <a href="https://blinq.me/09ewHCCxxNzR?s=s" target="_blank" style="color:var(--copper);text-decoration:none;">Look him up here.</a>
           </p>
         </div>
 
-        <div id="success" style="display:none;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" stroke="#965C46" stroke-width="1.5"/>
-            <path d="M7.5 12l3 3 6-6" stroke="#965C46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <h2>Thanks — we will be in touch.</h2>
+        <div id="success">
+          <h2>Thanks - we will be in touch.</h2>
           <p>Sheldon will reach out shortly to talk through options for your property.</p>
         </div>
       </div>
     </div>
-
   </main>
 
-  <footer>
-    Entegra Signature Structures &nbsp;&nbsp;|&nbsp;&nbsp; entegra.com.au
-  </footer>
+  <footer>Entegra Signature Structures &nbsp;|&nbsp; entegra.com.au</footer>
 
   <script>
-    // ── CONFIGURATION ──────────────────────────────────────────────────────────
-    // Paste your Google Apps Script web app URL here after deploying the script
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFolM6mutvJDnbrlMuQOfW96ujLa5aFq6Up_NgZ2_ANO3pn5SYPOvSd_Eo6i0RwCPi/exec';
-    // ──────────────────────────────────────────────────────────────────────────
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFolM6mutvJDnbrlMuQOfW96ujLa5aFq6Up_NgZ2_ANO3pn5SYPOvSd_Eo6i0RwCPi/exec';
+    var saved = {};
 
-    let calcResults = {};
+    document.getElementById('calc-btn').addEventListener('click', function() {
+      var t = parseFloat(document.getElementById('troughs').value);
+      var f = parseFloat(document.getElementById('frequency').value);
+      var m = parseFloat(document.getElementById('mins').value);
+      var w = parseFloat(document.getElementById('wage').value);
+      var err = document.getElementById('calc-error');
+      if (!t || !f || !m || !w) { err.style.display = 'block'; return; }
+      err.style.display = 'none';
 
-    function fmt(n) {
-      return '$' + Math.round(n).toLocaleString('en-AU');
-    }
+      var hCur = (f * t * m) / 60;
+      var cCur = hCur * w;
+      var hCroc = hCur * 0.5;
+      var cCroc = hCroc * w;
+      var saving = cCur - cCroc;
+      var hSaved = hCur - hCroc;
 
-    function fmtHrs(h) {
-      const rounded = Math.round(h);
-      return rounded + (rounded === 1 ? ' hour/year' : ' hours/year');
-    }
+      saved = { livestock: document.querySelector('input[name="livestock"]:checked').value, troughs: t, cleansPerYear: f, minsPerTrough: m, wage: w, costCurrent: Math.round(cCur), costCroc: Math.round(cCroc), saving: Math.round(saving), hoursSaved: Math.round(hSaved) };
 
-    function calculate() {
-      const troughs = parseFloat(document.getElementById('troughs').value);
-      const freq = parseFloat(document.getElementById('frequency').value);
-      const timePerTrough = parseFloat(document.getElementById('time-per-trough').value);
-      const wage = parseFloat(document.getElementById('wage').value);
+      document.getElementById('res-current-cost').textContent = '$' + Math.round(cCur).toLocaleString();
+      document.getElementById('res-current-hours').textContent = Math.round(hCur) + ' hours/year';
+      document.getElementById('res-croc-cost').textContent = '$' + Math.round(cCroc).toLocaleString();
+      document.getElementById('res-croc-hours').textContent = Math.round(hCroc) + ' hours/year';
+      document.getElementById('res-saving').textContent = '$' + Math.round(saving).toLocaleString();
+      document.getElementById('res-saving-hours').textContent = Math.round(hSaved) + ' hours saved per year';
 
-      const calcErr = document.getElementById('calc-error');
-      if (!troughs || !freq || !timePerTrough || !wage) {
-        calcErr.style.display = 'block';
-        return;
-      }
-      calcErr.style.display = 'none';
+      var r = document.getElementById('results');
+      r.style.display = 'block';
+      r.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
-      const cleansPerYear = freq;
-      const totalHoursCurrent = (cleansPerYear * troughs * timePerTrough) / 60;
-      const costCurrent = totalHoursCurrent * wage;
+    document.getElementById('submit-btn').addEventListener('click', function() {
+      var name = document.getElementById('lead-name').value.trim();
+      var phone = document.getElementById('lead-phone').value.trim();
+      var email = document.getElementById('lead-email').value.trim();
+      var err = document.getElementById('lead-error');
+      if (!name || !phone || !email) { err.style.display = 'block'; return; }
+      err.style.display = 'none';
 
-      const totalHoursCroc = totalHoursCurrent * 0.5;
-      const costCroc = totalHoursCroc * wage;
-
-      const saving = costCurrent - costCroc;
-      const hoursSaved = totalHoursCurrent - totalHoursCroc;
-
-      calcResults = {
-        livestock: document.querySelector('input[name="livestock"]:checked').value,
-        troughs,
-        cleansPerYear,
-        timePerTrough,
-        wage,
-        costCurrent: Math.round(costCurrent),
-        costCroc: Math.round(costCroc),
-        saving: Math.round(saving),
-        hoursSaved: Math.round(hoursSaved),
-        hoursCurrent: Math.round(totalHoursCurrent),
-        hoursCroc: Math.round(totalHoursCroc),
-      };
-
-      document.getElementById('res-current-cost').textContent = fmt(costCurrent);
-      document.getElementById('res-current-hours').textContent = fmtHrs(totalHoursCurrent);
-      document.getElementById('res-croc-cost').textContent = fmt(costCroc);
-      document.getElementById('res-croc-hours').textContent = fmtHrs(totalHoursCroc);
-      document.getElementById('res-saving').textContent = fmt(saving);
-      document.getElementById('res-saving-hours').textContent = Math.round(hoursSaved) + ' hours saved per year';
-
-      document.getElementById('results').style.display = 'block';
-      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function submitLead() {
-      const name = document.getElementById('lead-name').value.trim();
-      const phone = document.getElementById('lead-phone').value.trim();
-      const email = document.getElementById('lead-email').value.trim();
-
-      const leadErr = document.getElementById('lead-error');
-      if (!name || !phone || !email) {
-        leadErr.style.display = 'block';
-        return;
-      }
-      leadErr.style.display = 'none';
-
-      const btn = document.getElementById('submit-btn');
+      var btn = document.getElementById('submit-btn');
       btn.disabled = true;
-      btn.textContent = 
+      btn.textContent = 'Sending...';
+
+      fetch(SCRIPT_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ timestamp: new Date().toISOString(), name: name, phone: phone, email: email, livestock: saved.livestock, troughs: saved.troughs, cleansPerYear: saved.cleansPerYear, minsPerTrough: saved.minsPerTrough, wage: saved.wage, costCurrent: saved.costCurrent, costCroc: saved.costCroc, saving: saved.saving, hoursSaved: saved.hoursSaved })
+      }).then(function() {
+        document.getElementById('lead-form').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+      }).catch(function() {
+        document.getElementById('lead-form').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+      });
+    });
+  </script>
+
+</body>
+</html>
