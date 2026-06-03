@@ -327,6 +327,16 @@
     .btn-submit:hover { background: var(--copper-tint); }
     .btn-submit:disabled { background: var(--concrete); cursor: not-allowed; }
 
+    /* ── Inline error ── */
+    .error-msg {
+      display: none;
+      font-size: 13px;
+      font-weight: 400;
+      color: #a33;
+      margin-top: 12px;
+      text-align: center;
+    }
+
     /* ── Divider ── */
     .divider {
       height: 1px;
@@ -455,6 +465,7 @@
       </div>
 
       <button class="btn-primary" onclick="calculate()">Calculate my savings</button>
+      <p class="error-msg" id="calc-error">Please fill in all fields above before calculating.</p>
     </div>
 
     <!-- Step 2: Results -->
@@ -507,6 +518,7 @@
           </div>
 
           <button class="btn-submit" id="submit-btn" onclick="submitLead()">Tell Sheldon I'm keen to hear more</button>
+          <p class="error-msg" id="lead-error">Please fill in your name, phone and email.</p>
           <p style="font-size:12px;font-weight:300;color:var(--structural);text-align:center;margin-top:12px;">
             Not sure who Sheldon is? <a href="https://blinq.me/09ewHCCxxNzR?s=s" target="_blank" style="color:var(--copper);text-decoration:none;font-weight:400;">Look him up here.</a>
           </p>
@@ -518,7 +530,7 @@
             <path d="M7.5 12l3 3 6-6" stroke="#965C46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <h2>Thanks — we will be in touch.</h2>
-          <p>Rob will reach out shortly to talk through options for your property.</p>
+          <p>Sheldon will reach out shortly to talk through options for your property.</p>
         </div>
       </div>
     </div>
@@ -552,10 +564,12 @@
       const timePerTrough = parseFloat(document.getElementById('time-per-trough').value);
       const wage = parseFloat(document.getElementById('wage').value);
 
+      const calcErr = document.getElementById('calc-error');
       if (!troughs || !freq || !timePerTrough || !wage) {
-        alert('Please fill in all fields before calculating.');
+        calcErr.style.display = 'block';
         return;
       }
+      calcErr.style.display = 'none';
 
       const cleansPerYear = freq;
       const totalHoursCurrent = (cleansPerYear * troughs * timePerTrough) / 60;
@@ -597,32 +611,13 @@
       const phone = document.getElementById('lead-phone').value.trim();
       const email = document.getElementById('lead-email').value.trim();
 
+      const leadErr = document.getElementById('lead-error');
       if (!name || !phone || !email) {
-        alert('Please fill in your name, phone and email.');
+        leadErr.style.display = 'block';
         return;
       }
+      leadErr.style.display = 'none';
 
       const btn = document.getElementById('submit-btn');
       btn.disabled = true;
-      btn.textContent = 'Sending...';
-
-      const payload = {
-        timestamp: new Date().toISOString(),
-        name,
-        phone,
-        email,
-        ...calcResults,
-      };
-
-      fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      .then(() => {
-        document.getElementById('lead-form').style.display = 'none';
-        document.getElementById('success').style.display = 'block';
-      })
-      .catch(() => {
-        // no-co
+      btn.textContent = 
