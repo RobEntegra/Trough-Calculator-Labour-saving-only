@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trough Cleaning Cost Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --iron: #3A3A3A;
+      --basalt: #595959;
+      --structural: #8C8C8C;
+      --concrete: #C7C7C7;
+      --chalk: #F2F2F2;
+      --paper: #FFFFFF;
+      --copper: #965C46;
+      --copper-tint: #B27A62;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      background: var(--chalk);
+      color: var(--iron);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--iron);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    header img {
+      height: 36px;
+      width: auto;
+    }
+
+    header .tagline {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--concrete);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-left: 1px solid var(--structural);
+      padding-left: 16px;
+      margin-left: 4px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--iron);
+      padding: 48px 32px 52px;
+      text-align: center;
+    }
+
+    .hero .eyebrow {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--copper-tint);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--paper);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--concrete);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 40px 20px 60px;
+      flex: 1;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--concrete);
+      padding: 36px 32px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--structural);
+      margin-bottom: 28px;
+    }
+
+    /* ── Form elements ── */
+    .field {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--basalt);
+      margin-bottom: 8px;
+    }
+
+    label span.hint {
+      font-weight: 300;
+      color: var(--structural);
+      font-size: 13px;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--concrete);
+      background: var(--paper);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: var(--iron);
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      transition: border-color 0.15s;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238C8C8C' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--copper);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--concrete);
+      background: var(--paper);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: var(--iron);
+      border-radius: 0;
+      transition: border-color 0.15s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus {
+      outline: none;
+      border-color: var(--copper);
+    }
+
+    /* Livestock toggle */
+    .toggle-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .toggle-option {
+      position: relative;
+    }
+
+    .toggle-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 56px;
+      border: 1px solid var(--concrete);
+      background: var(--chalk);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--basalt);
+      transition: all 0.15s;
+      user-select: none;
+      margin: 0;
+    }
+
+    .toggle-option label svg {
+      flex-shrink: 0;
+    }
+
+    .toggle-option input[type="radio"]:checked + label {
+      background: var(--iron);
+      border-color: var(--iron);
+      color: var(--paper);
+    }
+
+    .toggle-option input[type="radio"]:checked + label svg path,
+    .toggle-option input[type="radio"]:checked + label svg circle,
+    .toggle-option input[type="radio"]:checked + label svg line {
+      stroke: var(--paper);
+    }
+
+    /* ── Results ── */
+    #results {
+      display: none;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .result-box {
+      padding: 24px 20px;
+      border: 1px solid var(--concrete);
+    }
+
+    .result-box .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--structural);
+      margin-bottom: 10px;
+    }
+
+    .result-box .value {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--iron);
+      line-height: 1;
+    }
+
+    .result-box .sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--structural);
+      margin-top: 6px;
+    }
+
+    .result-box.highlight {
+      background: var(--iron);
+      border-color: var(--iron);
+      grid-column: 1 / -1;
+    }
+
+    .result-box.highlight .label { color: var(--structural); }
+    .result-box.highlight .value { color: var(--copper-tint); font-size: 36px; }
+    .result-box.highlight .sub { color: var(--concrete); }
+
+    /* ── CTA button ── */
+    .btn-primary {
+      width: 100%;
+      height: 52px;
+      background: var(--iron);
+      color: var(--paper);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 0 8px 0 0;
+    }
+
+    .btn-primary:hover { background: var(--basalt); }
+
+    .btn-submit {
+      width: 100%;
+      height: 52px;
+      background: var(--copper);
+      color: var(--paper);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 0 8px 0 0;
+    }
+
+    .btn-submit:hover { background: var(--copper-tint); }
+    .btn-submit:disabled { background: var(--concrete); cursor: not-allowed; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--chalk);
+      margin: 24px 0;
+    }
+
+    /* ── Success state ── */
+    #success {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    #success svg { margin: 0 auto 20px; display: block; }
+
+    #success h2 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--iron);
+      margin-bottom: 12px;
+    }
+
+    #success p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--basalt);
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--iron);
+      padding: 20px 32px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--structural);
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 24px 20px; }
+      .results-grid { grid-template-columns: 1fr; }
+      .result-box.highlight { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Replace src with your hosted logo URL if needed -->
+    <img src="../logo22.avif" alt="Entegra" onerror="this.style.display='none'" />
+    <span class="tagline">Trough Cleaning Cost Calculator</span>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Know your numbers</div>
+    <h1>What is trough cleaning<br>costing your operation?</h1>
+    <p>Enter your details below to see what you currently spend on trough cleaning — and what you could save with Croc Props pumps.</p>
+  </div>
+
+  <main>
+
+    <!-- Step 1: Inputs -->
+    <div class="card" id="calculator-form">
+      <div class="card-title">Your operation</div>
+
+      <div class="field">
+        <label>Livestock type</label>
+        <div class="toggle-group">
+          <div class="toggle-option">
+            <input type="radio" name="livestock" id="cattle" value="cattle" checked />
+            <label for="cattle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 8c0-2 1-4 3-4s3 2 3 4" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M14 8c0-2 1-4 3-4s3 2 3 4" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
+                <ellipse cx="12" cy="13" rx="7" ry="5" stroke="#595959" stroke-width="1.5"/>
+                <path d="M8 18v3M16 18v3" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Cattle
+            </label>
+          </div>
+          <div class="toggle-option">
+            <input type="radio" name="livestock" id="sheep" value="sheep" />
+            <label for="sheep">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="10" r="5" stroke="#595959" stroke-width="1.5"/>
+                <circle cx="7" cy="8" r="2.5" stroke="#595959" stroke-width="1.5"/>
+                <circle cx="17" cy="8" r="2.5" stroke="#595959" stroke-width="1.5"/>
+                <path d="M9 15v4M15 15v4" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M11 19h2" stroke="#595959" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Sheep
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="troughs">Number of troughs</label>
+        <input type="number" id="troughs" min="1" max="500" placeholder="e.g. 12" />
+      </div>
+
+      <div class="field">
+        <label for="frequency">How often are troughs cleaned?</label>
+        <select id="frequency">
+          <option value="">Select frequency...</option>
+          <option value="365">Daily</option>
+          <option value="104">Twice a week</option>
+          <option value="52">Weekly</option>
+          <option value="26">Fortnightly</option>
+          <option value="12">Monthly</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="time-per-trough">Time to clean one trough <span class="hint">(minutes)</span></label>
+        <input type="number" id="time-per-trough" min="1" max="300" placeholder="e.g. 20" />
+      </div>
+
+      <div class="field">
+        <label for="wage">Wage cost per hour <span class="hint">($)</span></label>
+        <input type="number" id="wage" min="1" max="500" placeholder="e.g. 35" />
+      </div>
+
+      <button class="btn-primary" onclick="calculate()">Calculate my savings</button>
+    </div>
+
+    <!-- Step 2: Results -->
+    <div id="results">
+      <div class="card">
+        <div class="card-title">Your cleaning costs — current vs Croc Props</div>
+
+        <div class="results-grid">
+          <div class="result-box">
+            <div class="label">Current annual cost</div>
+            <div class="value" id="res-current-cost">—</div>
+            <div class="sub" id="res-current-hours"></div>
+          </div>
+          <div class="result-box">
+            <div class="label">With Croc Props pumps</div>
+            <div class="value" id="res-croc-cost">—</div>
+            <div class="sub" id="res-croc-hours"></div>
+          </div>
+          <div class="result-box highlight">
+            <div class="label">Annual saving</div>
+            <div class="value" id="res-saving">—</div>
+            <div class="sub" id="res-saving-hours"></div>
+          </div>
+        </div>
+
+        <p style="font-size:12px;font-weight:300;color:var(--structural);line-height:1.6;">
+          Croc Props pumps reduce trough cleaning frequency by approximately 50%, as troughs stay cleaner for longer with continuous water movement.
+        </p>
+      </div>
+
+      <!-- Step 3: Lead capture -->
+      <div class="card" id="lead-card">
+        <div class="card-title">Get the full picture</div>
+        <p style="font-size:15px;font-weight:300;color:var(--basalt);margin-bottom:24px;line-height:1.65;">
+          Leave your details and we will get back to you with a tailored recommendation for your property.
+        </p>
+
+        <div id="lead-form">
+          <div class="field">
+            <label for="lead-name">Your name</label>
+            <input type="text" id="lead-name" placeholder="First and last name" />
+          </div>
+          <div class="field">
+            <label for="lead-phone">Phone number</label>
+            <input type="tel" id="lead-phone" placeholder="04xx xxx xxx" />
+          </div>
+          <div class="field" style="margin-bottom:28px;">
+            <label for="lead-email">Email address</label>
+            <input type="email" id="lead-email" placeholder="you@example.com" />
+          </div>
+
+          <button class="btn-submit" id="submit-btn" onclick="submitLead()">Send my results to Rob</button>
+          <p style="font-size:12px;font-weight:300;color:var(--structural);text-align:center;margin-top:12px;">
+            Your details are used only to follow up on this enquiry.
+          </p>
+        </div>
+
+        <div id="success" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#965C46" stroke-width="1.5"/>
+            <path d="M7.5 12l3 3 6-6" stroke="#965C46" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h2>Thanks — we will be in touch.</h2>
+          <p>Rob will reach out shortly to talk through options for your property.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Entegra Signature Structures &nbsp;&nbsp;|&nbsp;&nbsp; entegra.com.au
+  </footer>
+
+  <script>
+    // ── CONFIGURATION ──────────────────────────────────────────────────────────
+    // Paste your Google Apps Script web app URL here after deploying the script
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFolM6mutvJDnbrlMuQOfW96ujLa5aFq6Up_NgZ2_ANO3pn5SYPOvSd_Eo6i0RwCPi/exec';
+    // ──────────────────────────────────────────────────────────────────────────
+
+    let calcResults = {};
+
+    function fmt(n) {
+      return '$' + Math.round(n).toLocaleString('en-AU');
+    }
+
+    function fmtHrs(h) {
+      const rounded = Math.round(h);
+      return rounded + (rounded === 1 ? ' hour/year' : ' hours/year');
+    }
+
+    function calculate() {
+      const troughs = parseFloat(document.getElementById('troughs').value);
+      const freq = parseFloat(document.getElementById('frequency').value);
+      const timePerTrough = parseFloat(document.getElementById('time-per-trough').value);
+      const wage = parseFloat(document.getElementById('wage').value);
+
+      if (!troughs || !freq || !timePerTrough || !wage) {
+        alert('Please fill in all fields before calculating.');
+        return;
+      }
+
+      const cleansPerYear = freq;
+      const totalHoursCurrent = (cleansPerYear * troughs * timePerTrough) / 60;
+      const costCurrent = totalHoursCurrent * wage;
+
+      const totalHoursCroc = totalHoursCurrent * 0.5;
+      const costCroc = totalHoursCroc * wage;
+
+      const saving = costCurrent - costCroc;
+      const hoursSaved = totalHoursCurrent - totalHoursCroc;
+
+      calcResults = {
+        livestock: document.querySelector('input[name="livestock"]:checked').value,
+        troughs,
+        cleansPerYear,
+        timePerTrough,
+        wage,
+        costCurrent: Math.round(costCurrent),
+        costCroc: Math.round(costCroc),
+        saving: Math.round(saving),
+        hoursSaved: Math.round(hoursSaved),
+        hoursCurrent: Math.round(totalHoursCurrent),
+        hoursCroc: Math.round(totalHoursCroc),
+      };
+
+      document.getElementById('res-current-cost').textContent = fmt(costCurrent);
+      document.getElementById('res-current-hours').textContent = fmtHrs(totalHoursCurrent);
+      document.getElementById('res-croc-cost').textContent = fmt(costCroc);
+      document.getElementById('res-croc-hours').textContent = fmtHrs(totalHoursCroc);
+      document.getElementById('res-saving').textContent = fmt(saving);
+      document.getElementById('res-saving-hours').textContent = Math.round(hoursSaved) + ' hours saved per year';
+
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function submitLead() {
+      const name = document.getElementById('lead-name').value.trim();
+      const phone = document.getElementById('lead-phone').value.trim();
+      const email = document.getElementById('lead-email').value.trim();
+
+      if (!name || !phone || !email) {
+        alert('Please fill in your name, phone and email.');
+        return;
+      }
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      const payload = {
+        timestamp: new Date().toISOString(),
+        name,
+        phone,
+        email,
+        ...calcResults,
+      };
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      .then(() => {
+        document.getElementById('lead-form').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+      })
+      .catch(() => {
+        // no-cors means we can't detect errors — show success anyway
+        document.getElementById('lead-form').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+      });
+    }
+  </script>
+
+</body>
+</html>
